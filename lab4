@@ -1,0 +1,50 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+
+void main() {
+	setlocale(LC_ALL, "RUS");
+	char c = '!';
+	int i = 2;
+	float f = 3.14f;
+	double d = 5e-12;
+	printf("c = %c i = %d d = %g f = %lg", c, i, d, f);
+	
+	double num, drobnoe;
+	int celoe;
+	printf("\nВведите вещественное число:");
+	scanf("%lf", &num);
+	printf("Целая часть: %.0lf\n", num);
+	celoe = num;
+	drobnoe = num - celoe;
+	printf("Дробная часть: %g", drobnoe);
+
+	char s;
+	printf("\nВведите символ:");
+	scanf("%s", &s);
+	printf("\nДесятичный код символа:%d",s);
+	printf("\nВосмеричый код символа:%x", s);
+
+	int ki;
+	double result;
+	printf("\nВведите число:");
+	scanf("%d", &ki);
+	result = 1.0/ki;
+	printf("\nДесятичное число, соответствующее 1/%d = %lf", ki, result);
+
+
+	int a, b, x;
+	float y;
+	double z;
+	a = 11;
+	b = 3;
+	x = a / b;
+	printf("\nв тип float %.2f \nв тип double %lf", (float)a/b, (double)a/b);
+
+
+	int N;
+	printf("\nВведите целое трехзначное число:");
+	scanf("%d", &N);
+	printf("\nПоследняя цифра числа N: %d\nПервая цифра числа N: %d\nСумма цифр числа N: %d\nРазвернутое число N: %d%d%d", N%10, N/100, (N%10)+(N/100)+(N/10)%10, N/100, N%10, (N/10)%10);
+
+}
