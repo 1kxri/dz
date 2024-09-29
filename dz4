@@ -1,0 +1,12 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+int main() {
+	setlocale(LC_ALL, "RUS");
+	float cena, dlina, wirina;
+	wirina = 0.8;
+	printf("Введите цену и длину ткани:\n");
+	scanf("%f", &cena);
+	scanf("%f", &dlina);
+	printf("\nСтоимость куска ткани: %f рублей", cena * dlina * wirina);
+}
