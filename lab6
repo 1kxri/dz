@@ -1,0 +1,33 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#include <conio.h>
+int main() {
+	setlocale(LC_ALL, "RUS");
+	int years, ostatok;
+	printf("Введите год:\n");
+	scanf("%d", &years);
+	ostatok = years % 4;
+	if ((ostatok == 0 && years % 100 != 0) || (years % 400 == 0)) printf("Год %d високосный\n", years);
+	else printf("Год %d високосный\n", years);
+
+	// При x = 6 ответ - 39, при x = 9 ответ 0
+	int x, otvet;
+	printf("Введите значаение x:\n");
+	scanf("%d", &x);
+	printf("Ответ: %d\n", otvet = x < 8 ? -(x * x) + x - 9 : 1 / (pow(x, 4) - 6));
+
+	int day1, month1, year1, day2, month2, year2;
+	char name1[50], name2[50];
+	printf("Введите имя, день, месяц и год рождения первого человека: ");
+	scanf("%s %d %d %d",&name1, &day1, &month1, &year1);
+
+	printf("Введите имя, день, месяц и год рождения второго человека: ");
+	scanf("%s %d %d %d",&name2, &day2, &month2, &year2);
+
+	if (year1 < year2 || (year1 == year2 && month1 < month2) || (year1 == year2 && month1 == month2 && day1 < day2)) printf("%s\n", name1);
+	else 
+		if (year1 > year2 || (year1 == year2 && month1 > month2) || (year1 == year2 && month1 == month2 && day1 > day2)) printf("%s\n", name2);
+}
