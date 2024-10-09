@@ -22,17 +22,17 @@ int main() {
 	y = log((a * a) / (a + b));
 	printf("x = %f, y = %f", x, y);
 
-
-	
-
-
-
+	int A, B, C;
+	A = (int)a;
+	B = (int)b;
+	C = (int)y;
+	printf("\n\nA = %d,B = %d,C = %d", A, B, C);
 	
 	float x2, y2, a2;
 	printf("\nВведите значаение x, y:\n");
 	scanf("%f", &x2);
 	scanf("%f", &y2);
 	a2 = pow(2., -x2) * sqrt(x2 + pow(fabs(y2), 1. / 4));
-	a2 = a2 * fabs(exp((x2 - 1) / (sin(z))), 1. / 3);
+	a2 = a2 * (exp((x2 - 1) / (sin(z))), 1. / 3);
 	printf("a = %f", a2);
 }
