@@ -1,0 +1,40 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#include <conio.h>
+int main() {
+	setlocale(LC_ALL, "RUS");
+	int z;
+	char x, y;
+	printf("Ведите число символов:\n");
+	scanf("%d", &z);
+	printf("Введите числа:\n");
+	scanf(" %c %c", &x, &y);
+	for (int start = 1; start <= 5; start++) {
+		putchar(x);
+		putchar('!');
+	}
+	for (int start = 6; start <= 10; start++) {
+		putchar(y);
+	    putchar('!');
+	}
+
+
+	int n, m, s, k;
+	s = 0;
+	k = 0;
+	printf("\nВведите два числа:\n");
+	scanf(" %d %d", &n, &m);
+	for (int i = m; i >= n; i--) {
+		s += i;
+	}
+	printf("Выполнено %d раз\n", k++);
+	printf("Результат %d\n", s);
+
+
+	int n1;
+	printf("Введите степень числа:\n");
+	scanf("%d", &n1);
+}
