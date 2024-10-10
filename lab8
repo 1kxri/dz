@@ -34,7 +34,12 @@ int main() {
 	printf("Результат %d\n", s);
 
 
-	int n1;
+	int n1, m1;
 	printf("Введите степень числа:\n");
 	scanf("%d", &n1);
+	printf("Введите число m:");
+	scanf("%d", &m1);
+	printf("2 ^ %d = %f\n", n1, pow(2, n1));
+	printf("Результат %dK\n", n1);
+	for (int start = 1; start <= m1; start++) printf("%f", pow(n1, m1));
 }
