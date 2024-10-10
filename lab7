@@ -1,0 +1,129 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#include <conio.h>
+int main() {
+	setlocale(LC_ALL, "RUS");
+	char c;
+	printf("Введите букву или цифру:\n");
+	scanf("%c", &c);
+	switch (c)
+	{
+	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z':
+		printf("Введена буква\n");
+		break;
+	case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+		printf("Введена цифра\n");
+		break;
+	default:
+		printf("Неизвестный символ\n");
+	}
+
+	float x, y;
+	char c1;
+	printf("Введите пример:\n");
+	scanf("%f %c %f", &x, &c1, &y);
+	switch (c1)
+	{
+	case '+':
+		printf("=%f\n", x + y);
+		break;
+	case '-':
+		printf("=%f\n", x - y);
+		break;
+	case '*':
+		printf("=%f\n", x * y);
+		break;
+	case '/':
+		printf("=%f\n", x / y);
+		break;
+	case '**':
+		printf("=%f\n", pow(x, y));
+		break;
+	default:
+		printf("Калькулятор не может решить такой пример\n");
+	}
+
+	char c2;
+	printf("Введите год римскими цифрами:\n");
+	scanf("%s", &c2);
+	switch (c2)
+	{
+	case 'I':
+		printf("2001\n");
+		break;
+	case 'II':
+		printf("2002\n");
+		break;
+	case 'III':
+		printf("2003\n");
+		break;
+	case 'IV':
+		printf("2004\n");
+		break;
+	case 'V':
+		printf("2005\n");
+		break;
+	case 'VI':
+		printf("2006\n");
+		break;
+	case 'VII':
+		printf("2007\n");
+		break;
+	case 'VIII':
+		printf("2008\n");
+		break;
+	case 'IX':
+		printf("2009\n");
+		break;
+	case 'X':
+		printf("2010\n");
+		break;
+	case 'XI':
+		printf("2011\n");
+		break;
+	case 'XII':
+		printf("2012\n");
+		break;
+	case 'XIII':
+		printf("2013\n");
+		break;
+	case 'XIV':
+		printf("2014\n");
+		break;
+	case 'XV':
+		printf("2015\n");
+		break;
+	case 'XVI':
+		printf("2016\n");
+		break;
+	case 'XVII':
+		printf("2017\n");
+		break;
+	case 'XVIX':
+		printf("2018\n");
+		break;
+	case 'XIX':
+		printf("2019\n");
+		break;
+	case 'XX':
+		printf("2020\n");
+		break;
+	case 'XXI':
+		printf("2021\n");
+		break;
+	case 'XXII':
+		printf("2022\n");
+		break;
+	case 'XXIX':
+		printf("2023\n");
+		break;
+	case 'XXIV':
+		printf("2024\n");
+		break;
+	default:
+		printf("Такого года не существует\n");
+	}
+}
