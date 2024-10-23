@@ -1,27 +1,91 @@
-#define _USE_MATH_DEFINES 
-#define _CRT_SECURE_NO_WARNINGS
-#define ROW 9
-#define COL 9 
-#define STOLB 4
-#define STROK 5
-#include <stdio.h>
-#include <math.h>
-#include <locale.h>
-#include <conio.h>
-void main() {
-	int row, col;
+#define _CRT_SECURE_NO_WARNINGS  
+#define	ROW 9
+#include <stdio.h>  
+#include <locale.h>  
+#include <math.h>  
+int main() {
+	setlocale(LC_CTYPE, "RUS");
+	int row, col, COL = 1;
 	printf("\n");
-	for (row = 1; row <= ROW; ++row) {
+	for (row = 1; row <= ROW; ++row)
+	{
 		for (col = 1; col <= COL; col++)
+		{
 			printf("%5d", col * row);
+		}
+		COL += 1;
 		printf("\n");
 	}
-	int stolb, strok;
+
+	int strok = 5; 
+	for (int i = 0; i < strok; i++) 
+	{
+		for (int j = i; j >= 0; j--) 
+		{
+			printf("%d ", j);
+		}
+		printf("\n"); 
+	}
+
+	
+	while (1)
+	{
+		char a;
+		int chislo;
+		printf("Введите произвольное число: ");
+		scanf(" %d", &chislo);
+		int poslchislo = chislo % 10;
+		chislo /= 10;
+		while (chislo > 0)
+		{
+			if (chislo % 10 == poslchislo)
+			{
+				printf("Соседние одинаковые цифры: % d\n", poslchislo);
+			}
+			poslchislo = chislo % 10;
+			chislo /= 10;
+		}
+
+		printf("Продолжить? (Да - y, нет - n) : ");
+		while (getchar() != '\n');
+		if ((a = getchar()) == 'n')
+		{
+			break;
+		}
+	}
 	printf("\n");
-	for (stolb = 0; stolb <= STOLB; stolb += 1) {
-		for (strok = 0; strok <= STROK; strok += 1)
-			printf("%5d", stolb);
+
+
+	char symbol;
+	int rad;
+	printf("Введите символ для заполнения правильного четырехугольника: ");
+	scanf(" %c", &symbol);
+	printf("Введите радиус правильного четырехугольника: ");
+	scanf("%d", &rad);
+	for (int i = 0; i < rad; i++)
+	{
+
+		for (int j = rad - i - 1; j > 0; j--)
+		{
+			printf("  ");
+		}
+		for (int j = 0; j < (2 * i + 1); j++) 
+		{
+			printf("%c ", symbol);
+		}
 		printf("\n");
 	}
-	system("pause");
+	for (int i = rad - 2; i >= 0; i--)
+	{
+		for (int j = rad - i - 1; j > 0; j--)
+		{
+			printf("  ");
+		}
+		for (int j = 0; j < (2 * i + 1); j++) 
+		{
+			printf("%c ", symbol);
+		}
+		printf("\n");
+	}
+	return 0;
 }
