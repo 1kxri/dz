@@ -1,0 +1,57 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+double fa(double x)
+{
+	double y;
+	if (x <= 3) 
+	{
+		y = pow(x, 2) - 3 * x + 9;
+	}
+	else {
+		y = 1 / (pow(x, 3) + 3);
+	}
+	return y;
+}
+double fb(double x)
+{
+	double y2;
+	y2 = x * exp(sin(pow(x, 2)));
+	return y2;
+}
+double sin_n(double x2, int N)
+{
+	double res = 0;
+	double perv = x2;
+	for (int n = 1; n <= N; n++)
+	{
+		res += perv;
+		res *= (x2 * x2) / ((2 * n) * (2 * n + 1));
+	}
+	return res;
+}
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	double x;
+	printf("Введите значение x:");
+	scanf("%lf", &x);
+	printf("fa(x)=%lf , fb(x)=%lf \n\n", fa(x), fb(x));
+	printf("Произведение: %lf\nРазность квадратов: %lf\nУдвоенная сумма: %lf\n", fa(x) * fb(x), pow(fa(x), 2) - pow(fb(x), 2), (fa(x) + fb(x)) * 2);
+
+	int N;
+	double x2, res2 = 0;
+	printf("Введите N:");
+	scanf("%d", &N);
+	printf("Введите x:");
+	scanf("%lf", &x2);
+	printf(" N |   sin_n   | Отклонение:\n");
+	for (int i = 1; i <= N; i++)
+	{
+		res2 = sin_n(x2, i);
+		printf("%3.d|%7.10lf|%+le\n", i, res2, sin(x2) - res2);
+	}
+}
