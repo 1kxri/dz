@@ -1,0 +1,76 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+float plosad(float a) 
+{
+	return a * a;
+}
+void opr()
+{
+ printf("Правильный четырёхугольник — это фигура, у которой все стороны и все углы равны\n");
+}
+void draw_rectangle(int a)
+{
+	char symbol;
+	int rad;
+	printf("Введите символ для заполнения правильного четырехугольника: ");
+	scanf(" %c", &symbol);
+	printf("Введите радиус правильного четырехугольника: ");
+	scanf("%d", &rad);
+	for (int i = 0; i < rad; i++)
+	{
+
+		for (int j = rad - i - 1; j > 0; j--)
+		{
+			printf("  ");
+		}
+		for (int j = 0; j < (2 * i + 1); j++)
+		{
+			printf("%c ", symbol);
+		}
+		printf("\n");
+	}
+	for (int i = rad - 2; i >= 0; i--)
+	{
+		for (int j = rad - i - 1; j > 0; j--)
+		{
+			printf("  ");
+		}
+		for (int j = 0; j < (2 * i + 1); j++)
+		{
+			printf("%c ", symbol);
+		}
+		printf("\n");
+	}
+}
+int main() 
+{
+    setlocale(LC_CTYPE, "RUS");
+    int vibor;
+    float dlina;
+    printf("Введите длину стороны правильного четырехугольника: ");
+    scanf("%f", &dlina);
+    printf("\nВыберите операцию:\n");
+    printf("1)Рассчитать площадь\n");
+    printf("2)Вывести определение фигуры\n");
+    printf("3)Нарисовать фигуру\n");
+    printf("\nВаш выбор: ");
+    scanf("%d", &vibor);
+    switch (vibor)
+    {
+    case 1:
+        printf("Площадь правильного четырехугольника: %.2f\n", plosad(dlina));
+        break;
+    case 2:
+        opr();
+        break;
+    case 3:
+        draw_rectangle((int)dlina);
+        break;
+    default:
+        printf("Такой операции не существует");
+    }
+}
