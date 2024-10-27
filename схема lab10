@@ -413,7 +413,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="O5iyHuZTw4pn6LFIyWj3-104" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="654" y="2730" width="120" height="60" as="geometry" />
+          <mxGeometry x="430" y="2730" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="O5iyHuZTw4pn6LFIyWj3-105" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="O5iyHuZTw4pn6LFIyWj3-74" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -452,7 +452,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="O5iyHuZTw4pn6LFIyWj3-111" value="Конец" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="683" y="2745" width="60" height="30" as="geometry" />
+          <mxGeometry x="459" y="2745" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="O5iyHuZTw4pn6LFIyWj3-112" value="i &gt;= 0" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="684" y="1795" width="60" height="30" as="geometry" />
@@ -556,7 +556,7 @@
         <mxCell id="rHerOMfPjtidebAOyIkl-20" value="Вывести определение фигуры" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="250" y="305" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="rHerOMfPjtidebAOyIkl-21" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="rHerOMfPjtidebAOyIkl-21" value="default" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="520" y="305" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="rHerOMfPjtidebAOyIkl-22" value="Нарисовать фигуру" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
@@ -609,6 +609,42 @@
         </mxCell>
         <mxCell id="rHerOMfPjtidebAOyIkl-34" value="Такой операции не существует" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="520" y="495" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-35" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="rHerOMfPjtidebAOyIkl-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="680" as="sourcePoint" />
+            <mxPoint x="600" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-36" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="680" as="sourcePoint" />
+            <mxPoint x="550" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-37" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" target="rHerOMfPjtidebAOyIkl-31">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="680" as="sourcePoint" />
+            <mxPoint x="320" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-38" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="2760" as="sourcePoint" />
+            <mxPoint x="280" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-39" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="rHerOMfPjtidebAOyIkl-27">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="2760" as="sourcePoint" />
+            <mxPoint x="160" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rHerOMfPjtidebAOyIkl-40" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="O5iyHuZTw4pn6LFIyWj3-104">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="2760" as="sourcePoint" />
+            <mxPoint x="250" y="2800" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
