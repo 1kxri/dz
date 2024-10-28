@@ -1,0 +1,75 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#define N 10
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	float A[N];
+	float B[N];
+	float temp;
+	float sum = 0.0, srarifm;
+	for (int i = 0; i < N; i++)
+	{
+		printf("a[%d] = ", i + 1);
+		scanf("%f", &temp);
+		A[i] = temp;
+	}
+	for (int i = 0; i < N; i++)
+	{
+		B[i] = ceil(A[i]);
+	}
+	for (int i = 0; i < N; i++)
+	{
+		printf("\n a[%d] = %f", i, A[i]);
+	}
+	for (int i = 0; i < N; i++)
+	{
+		printf("\n индекс |   исходное значение   | новое значение\n");
+		printf("%d       |%f               |%f     ", i, A[i], B[i]);
+	}
+	for (int i = 0; i < N; i++)
+	{
+		sum += A[i];
+	}
+	srarifm = sum / N;
+	printf("\nСреднее арифметическое массива: %f", srarifm);
+
+
+	float C[100];
+	float x;
+	double step, end = 2.5, start = 0.1;
+	double sumpol = 0.0, sumneg = 0.0;
+	int chislipol = 0, chisloneg = 0;
+	printf("\nВведите шаг табуляции:");
+	scanf("%lf", &step);
+	for (int i = 0; i < 100; i++)
+	{
+		double x = start + i * step;
+		C[i] = pow(x, 2) + 2 * M_PI * cos(M_PI * x);
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		if (C[i] > 0)
+		{
+			sumpol += C[i];
+			chislipol++;
+		}
+		else if (C[i] < 0)
+		{
+			sumneg += C[i];
+			chisloneg++;
+		}
+	}
+	printf("\nИмя массива: C");
+	printf("\nНакопленное значение положительных элементов: %lf", sumpol);
+	printf("\nКоличество положмтельных эелементов: %d", chislipol); 
+
+
+	printf("\nНакопленное значение положительных элементов: %lf", sumneg);
+	printf("\nКоличество положмтельных эелементов: %d", chisloneg);
+}
