@@ -5,18 +5,7 @@
 #include <locale.h>
 #include <conio.h>
 #include <math.h>
-double res(double x)
-{
-	return pow(x, 2) + 2 * M_PI * cos(M_PI * x);
-}
-void array(double start, double end, double step, float C[100], int* index)
-{
-	for (double x = start; x <= end && *index < 100; x += step)
-	{
-		C[*index] = res(x);
-		(*index)++;
-	}
-}
+
 int main()
 {
 	setlocale(LC_CTYPE, "RUS");
@@ -24,6 +13,7 @@ int main()
 	float B[N];
 	float temp;
 	float sum = 0.0, srarifm;
+	
 	for (int i = 0; i < N; i++)
 	{
 		printf("a[%d] = ", i + 1);
@@ -38,10 +28,11 @@ int main()
 	{
 		printf("\n a[%d] = %f", i, A[i]);
 	}
+	printf("\nиндекс  |исходное значение      |новое значение");
 	for (int i = 0; i < N; i++)
+		
 	{
-		printf("\n индекс |   исходное значение   | новое значение\n");
-		printf("%d       |%f               |%f     ", i, A[i], B[i]);
+		printf("\n%d       |%f               |%f     ", i, A[i], B[i]);
 	}
 	for (int i = 0; i < N; i++)
 	{
@@ -49,18 +40,21 @@ int main()
 	}
 	srarifm = sum / N;
 	printf("\nСреднее арифметическое массива: %f", srarifm);
-
+    
+	double array[100];
+	int index = 0;
 	float C[100];
-	float srznach1 = 0.0, srznach2 = 0.0, step, start,end;
+	float x;
+	double step, end = 2.5, start = 0.1;
 	double sumpol = 0.0, sumneg = 0.0;
 	int chislipol = 0, chisloneg = 0;
-	printf("Введите начало:");
-	scanf("%f", &start);
-	printf("Введите конец:");
-	scanf("%f", &end);
-	printf("\nВведите шаг табуляции:\n");
+	printf("\nВведите шаг табуляции:");
 	scanf("%lf", &step);
-	array(start, end, step, C, 100);
+	for (double x = start; x <= end && index; x += step)
+	{
+		array[index] = pow(x, 2) + 2 * M_PI * cos(M_PI * x);
+		index++;
+	}
 	for (int i = 0; i < 100; i++)
 	{
 		if (C[i] > 0)
@@ -74,12 +68,11 @@ int main()
 			chisloneg++;
 		}
 	}
-	printf("Имя массива: C");
-	printf("Накопленное значение положительных элементов: %lf", sumpol);
-	printf("Количество положмтельных эелементов: %lf", chislipol); 
-	printf("Вычисленное среднее значение: %lf", srznach1);
+	printf("\nИмя массива: C");
+	printf("\nНакопленное значение положительных элементов: %lf", sumpol);
+	printf("\nКоличество положмтельных эелементов: %d", chislipol); 
 
-	printf("Накопленное значение положительных элементов: %lf", sumneg);
-	printf("Количество положмтельных эелементов: %lf", chisloneg);
-	printf("Вычисленное среднее значение: %lf", srznach2);
+
+	printf("\nНакопленное значение положительных элементов: %lf", sumneg);
+	printf("\nКоличество положмтельных эелементов: %d", chisloneg);
 }
