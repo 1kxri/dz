@@ -1,0 +1,40 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define MAX_SIZE 100
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#include <conio.h>
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    int n;
+    printf("Введите количество элементов массива: ");
+    scanf("%d", &n);
+
+    double arr[MAX_SIZE];
+    printf("Введите %d элементов массива:\n", n);
+    for (int i = 0; i < n; i++) 
+    {
+        scanf("%lf", &arr[i]);
+    }
+
+    double min_mod = fabs(arr[0]);
+    int min_index = 0;
+    for (int i = 1; i < n; i++) 
+    {
+        if (fabs(arr[i]) < min_mod) 
+        {
+            min_mod = fabs(arr[i]);
+            min_index = i;
+        }
+    }
+    printf("Минимальный по модулю элемент: %lf (индекс: %d)\n", arr[min_index], min_index);
+
+    double sum = 0.0;
+    for (int i = min_index + 1; i < n; i++) 
+    {
+        sum += arr[i];
+    }
+    printf("Сумма элементов после минимального по модулю элемента: %lf\n", sum);
+}
