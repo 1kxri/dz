@@ -1,9 +1,51 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36" version="24.8.3">
   <diagram name="Страница — 1" id="T_yh9nvxvDEUi_6nt2Mw">
-    <mxGraphModel>
+    <mxGraphModel dx="2433" dy="2651" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="tnt_OWax7YJEPflI4Zov-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="36" y="-1544" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-2" value="Начало" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="70" y="-1529" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-3" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tnt_OWax7YJEPflI4Zov-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="121" y="-1392" as="sourcePoint" />
+            <mxPoint x="96" y="-1451" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-4" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-59.5" y="-1451" width="311" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-7" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="96" y="-1383" as="sourcePoint" />
+            <mxPoint x="96" y="-1346" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-8" value="" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="-74.5" y="-1347" width="341" height="59" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-9" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="tnt_OWax7YJEPflI4Zov-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="193" y="-1178" as="sourcePoint" />
+            <mxPoint x="96" y="-1249" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-10" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="36" y="-1248" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-11" value="Конец" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="66" y="-1233" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-12" value="size_of_double = (char*)(&amp;arr[1]) - (char*)(&amp;arr[0])" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="-59.5" y="-1451" width="308.5" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="tnt_OWax7YJEPflI4Zov-13" value="printf(&quot;\nРазмер типа double в байтах: %d\n&quot;, size_of_double)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="-51" y="-1347" width="293" height="59" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
