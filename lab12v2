@@ -1,0 +1,78 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <math.h>
+#include <locale.h>
+#include <conio.h>
+void byte(void* ptr, size_t size)
+{
+    unsigned char* byte_ptr = ptr;
+    for (int i = 0; i < size; i++)
+    {
+        printf("%.2x ", byte_ptr[i]);
+    }
+    printf("\n");
+}
+int main() {
+    setlocale(LC_ALL, "RUS");
+
+    char* po, o = 1;
+    int* pi, i = 5;
+    float* pf, f = 2.1f;
+    double* pu, u = 12345.9876;
+    printf("%lu\n", sizeof(pi));
+    printf("%lu\n", sizeof(pf));
+    printf("%lu\n", sizeof(po));
+    printf("%lu\n", sizeof(pu));
+
+    float PI = 3.14159, * p1, * p2;
+    p1 = p2 = &PI;
+    printf("\nПо адресу p1=%x хранится *p1=%g\n", p1, *p1);
+    printf("По адресу p2=%x хранится *p2=%g\n", p2, *p2);
+
+    _Bool* pa, x = 5;
+    pa = &x;
+    printf("\nПо адресу %p хранится *ptr=%g\n", pa, *pa);
+    pa++;
+    printf("По адресу %p хранится *ptr=%g\n", pa, *pa);
+    pa--;
+    printf("По адресу %p хранится *ptr=%g\n", pa, *pa);
+
+    float array[10] = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9 };
+    float* ptr_a = array;
+    printf("\narray: %p\n", array);
+    printf("&array[0]: %p\n", &array[0]);
+    printf("&array: %p\n", &array);
+
+    printf("\nУказатель ptr_a: %p, значение *ptr_a: %f\n", ptr_a, *ptr_a);
+    ptr_a++;
+    printf("Указатель ptr_a++: %p, значение *ptr_a: %f\n", ptr_a, *ptr_a);
+    ptr_a += 4;
+    printf("Указатель ptr_a+4: %p, значение *ptr_a: %f\n", ptr_a, *ptr_a);
+    ptr_a -= 2;
+    printf("Указатель ptr_a-2: %p, значение *ptr_a: %f\n", ptr_a, *ptr_a);
+
+    printf("\nПроход по массиву с увеличением указателя на 2:\n");
+    for (ptr_a = array; ptr_a < array + 10; ptr_a += 2)
+    {
+        printf("Указатель: %p, значение: %f\n", ptr_a, *ptr_a);
+    }
+
+    printf("\nПроход по массиву в обратном порядке:\n");
+    ptr_a = array + 8;
+    for (int i = 0; i < 9; i++)
+    {
+        printf("Указатель: %p, значение: %f\n", ptr_a, *ptr_a);
+        ptr_a--;
+    }
+
+    int x1 = 12345.0;
+    float x2 = 12345.0;
+    double x3 = 12345.0;
+    printf("\nБайты переменной int:\n");
+    byte(&x1, sizeof(x1));
+    printf("Байты переменной float:\n");
+    byte(&x2, sizeof(x2));
+    printf("Байты переменной double:\n");
+    byte(&x3, sizeof(x3));
+}
