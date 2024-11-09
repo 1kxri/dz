@@ -1,0 +1,90 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+#include <conio.h>
+// Функция для инициализации массива случайными числами
+void initRandomArray(int** array, int rows, int cols) 
+{
+    srand(time(NULL)); // Устанавливаем seed для rand()
+
+    for (int i = 0; i < rows; i++) 
+    {
+        for (int j = 0; j < cols; j++) 
+        {
+            array[i][j] = rand() % 100; // Генерируем случайное число от 0 до 99
+        }
+    }
+}
+
+// Функция для вывода массива на экран
+void printArray(int** array, int rows, int cols) 
+{
+    printf("Массив:\n");
+    for (int i = 0; i < rows; i++) 
+    {
+        for (int j = 0; j < cols; j++) 
+        {
+            printf("%d ", array[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() 
+{
+    setlocale(LC_ALL, "RUS");
+    int rows, cols;
+    int** array;
+
+    printf("Введите количество строк массива: ");
+    scanf("%d", &rows);
+
+    printf("Введите количество столбцоы массива: ");
+    scanf("%d", &cols);
+
+    // Выделяем память под массив
+    array = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) 
+    {
+        array[i] = (int*)malloc(cols * sizeof(int));
+    }
+
+    char choice;
+    do 
+    {
+        printf("Выберите операцию:\n");
+        printf("1. Инициализировать массив случайными числами\n");
+        printf("2. Напечатать массив\n");
+        printf("3. Выйти\n");
+        scanf(" %c", &choice);
+
+        switch (choice) 
+        {
+        case '1':
+            initRandomArray(array, rows, cols);
+            printf("Массив заполнился случайными числами.\n");
+            break;
+        case '2':
+            printArray(array, rows, cols);
+            break;
+        case '3':
+            printf("Выход из программы.\n");
+            break;
+        default:
+            printf("Неизвестная программа.\n");
+            break;
+        }
+    } while (choice != '3');
+
+    // Освобождаем память, выделенную под массив
+    for (int i = 0; i < rows; i++) 
+    {
+        free(array[i]);
+    }
+    free(array);
+
+    return 0;
+}
