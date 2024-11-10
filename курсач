@@ -1,90 +1,98 @@
 #define _USE_MATH_DEFINES 
 #define _CRT_SECURE_NO_WARNINGS
+#define SIZE 6
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
 #include <conio.h>
-// Функция для инициализации массива случайными числами
-void initRandomArray(int** array, int rows, int cols) 
-{
-    srand(time(NULL)); // Устанавливаем seed для rand()
 
-    for (int i = 0; i < rows; i++) 
-    {
-        for (int j = 0; j < cols; j++) 
-        {
-            array[i][j] = rand() % 100; // Генерируем случайное число от 0 до 99
-        }
-    }
-}
-
-// Функция для вывода массива на экран
-void printArray(int** array, int rows, int cols) 
+void printMatrix(int** matrix, int size) 
 {
-    printf("Массив:\n");
-    for (int i = 0; i < rows; i++) 
+    for (int i = 0; i < size; i++) 
     {
-        for (int j = 0; j < cols; j++) 
+        for (int j = 0; j < size; j++) 
         {
-            printf("%d ", array[i][j]);
+            printf("%d ", matrix[i][j]);
         }
         printf("\n");
     }
+    printf("\n");
+}
+
+void rearrangeMatrix(int** matrix) 
+{
+    matrix[0][0] = matrix[0][1] = matrix[1][0] = matrix[1][1] = 1;
+    matrix[4][4] = matrix[4][5] = matrix[5][4] = matrix[5][5] = 1;
 }
 
 int main() 
 {
     setlocale(LC_ALL, "RUS");
-    int rows, cols;
-    int** array;
-
-    printf("Введите количество строк массива: ");
-    scanf("%d", &rows);
-
-    printf("Введите количество столбцоы массива: ");
-    scanf("%d", &cols);
-
-    // Выделяем память под массив
-    array = (int**)malloc(rows * sizeof(int*));
-    for (int i = 0; i < rows; i++) 
+    printf("Привет!\n");
+    int** matrix = (int**)malloc(SIZE * sizeof(int*));
+    for (int i = 0; i < SIZE; i++) 
     {
-        array[i] = (int*)malloc(cols * sizeof(int));
+        matrix[i] = (int*)malloc(SIZE * sizeof(int));
     }
 
-    char choice;
+    int option;
     do 
     {
-        printf("Выберите операцию:\n");
-        printf("1. Инициализировать массив случайными числами\n");
-        printf("2. Напечатать массив\n");
-        printf("3. Выйти\n");
-        scanf(" %c", &choice);
+        printf("Выберите способ инициализации матрицы:\n");
+        printf("1. Ввести вручную\n");
+        printf("2. Сгенерировать случайно\n");
+        printf("3. Выход\n");
+        printf("Ваш выбор: ");
+        scanf("%d", &option);
 
-        switch (choice) 
+        switch (option) 
         {
-        case '1':
-            initRandomArray(array, rows, cols);
-            printf("Массив заполнился случайными числами.\n");
+        case 1:
+            printf("Введите элементы матрицы 6x6 (0 или 1):\n");
+            for (int i = 0; i < SIZE; i++) 
+            {
+                for (int j = 0; j < SIZE; j++) 
+                {
+                    scanf("%d", &matrix[i][j]);
+                }
+            }
             break;
-        case '2':
-            printArray(array, rows, cols);
+        case 2:
+            srand(time(0));
+            for (int i = 0; i < SIZE; i++) 
+            {
+                for (int j = 0; j < SIZE; j++) 
+                {
+                    matrix[i][j] = rand() % 2;
+                }
+            }
+            printf("Сгенерированная матрица:\n");
+            printMatrix(matrix, SIZE);
             break;
-        case '3':
-            printf("Выход из программы.\n");
+        case 3:
+            printf("Выход из программы\n");
             break;
         default:
-            printf("Неизвестная программа.\n");
-            break;
+            printf("Неверный выбор\n");
         }
-    } while (choice != '3');
 
-    // Освобождаем память, выделенную под массив
-    for (int i = 0; i < rows; i++) 
+        if (option != 3) 
+        {
+            rearrangeMatrix(matrix);
+            printf("Преобразованная матрица:\n");
+            printMatrix(matrix, SIZE);
+        }
+
+        printf("Хотите продолжить? (1 - Да, 0 - Нет): ");
+        scanf("%d", &option);
+    } 
+    while (option == 1);
+    for (int i = 0; i < SIZE; i++) 
     {
-        free(array[i]);
+        free(matrix[i]);
     }
-    free(array);
-
+    free(matrix);
     return 0;
 }
