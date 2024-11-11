@@ -1,0 +1,88 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define N 1000
+#define M_PI 3.14
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+#include <conio.h>
+
+double* full_elements(double* ptr_array, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        double x = i + 1;
+        ptr_array[i] = pow(x, 2) + 2 * M_PI * cos(M_PI * x);
+    }
+    return ptr_array;
+}
+int put_elements(double* ptr_array, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("%.2f", ptr_array[i]);
+    }
+    printf("\n");
+}
+double* calc_elements(double* ptr_array, double* ptr_array2, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        ptr_array2[i] = ceil(ptr_array[i]);
+    }
+    return ptr_array2;
+}
+double sum_elements(double* ptr_array, int begin, int end)
+{
+    double sum = 0.0;
+    for (int i = begin; i <= end; i++)
+    {
+        sum += ptr_array[i];
+    }
+    return sum;
+}
+int find_element(double* ptr_array, int n, double element)
+{
+    int i = 0;
+    while (ptr_array[i] != element && i < n)
+    {
+        i++;
+        if (ptr_array[i] == element)
+            return 1;
+        else
+            return -1;
+    }
+}
+int find_max(double* ptr_array, int n)
+{
+    int max = 0;
+    for (int i = 0; i < n; i+=2)
+    {
+        if (ptr_array[i] > max)
+            max += ptr_array[i];
+    }
+    return max;
+}
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    double array[N], array2[N], element;
+    int size, begin, end;
+    printf("Введите размер массива > ");
+    scanf("%d", &size);
+    full_elements(array, size);
+    put_elements(array, size);
+    calc_elements(array, array2, size);
+    put_elements(array2, size);
+    printf("\nВведите начало подсчета суммы:\n");
+    scanf("%d", &begin);
+    printf("Введите конец подсчета суммы:\n");
+    scanf("%d", &end);
+    printf("Сумма элементов от %d до %d = %fl\n", begin, end, sum_elements(array, begin, end));
+    printf("\nВведите элемент, который вы хотите найти:");
+    scanf("%fl", &element);
+    printf("\nДанный элемент находится по индексу: %d\n", find_element(array, size, element));
+    printf("\nМаксимаьное значение элемента находящегося на четных позициях %d:", find_max(array, size));
+}
