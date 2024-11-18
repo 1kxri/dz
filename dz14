@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+int findMaxValue(int* arr, int size, int type) 
+{
+    int max = arr[type];
+    for (int i = type; i < size; i += 2) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+int main() 
+{
+    setlocale(LC_ALL, "RUS");
+    int arr[] = { 3, 8, 2, 7, 5, 10, 1 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int maxnecet = findMaxValue(arr, size, 0);
+    int maxcet = findMaxValue(arr, size, 1);
+    printf("Максимальное значение на нечетных позициях: %d\n", maxnecet);
+    printf("Максимальное значение на четных позициях: %d\n", maxcet);
+}
