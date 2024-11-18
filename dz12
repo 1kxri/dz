@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+int main() 
+{
+    setlocale(LC_ALL, "RUS");
+    double arr[1];
+    int size_of_double = (char*)(&arr[1]) - (char*)(&arr[0]);
+    printf("\nРазмер типа double в байтах: %d\n", size_of_double);
+}
