@@ -46,8 +46,8 @@ void rand_elements(double* ptr_array, int size)
 
 int delete_k(double* ptr_array, int size, double k)
 {
-    int n = 0;
-    for (int i = 0; i < size; i++)
+    int n = size - 1;
+    for (int i = 0; i < (size - 1 ); i++)
     {
         if (ptr_array[i] <= k)
         {
@@ -66,7 +66,9 @@ int* insert(int* ptr_array, int* size, int index, int num)
     if (ptr_array == NULL) return ptr_array;
     ptr_array = ptr_array_n;
     for (int i = size_n - 1; i > index; i--)
+    {
         ptr_array[i] = ptr_array[i - 1];
+    }
     ptr_array[index] = num;
     *size = size_n;
     return ptr_array;
@@ -88,23 +90,26 @@ int main()
     full_elements(arr, size);
     printf("Массив:");
     put_elements(arr, size);
+
     calc_elements(arr, size);
     printf("\nНовый массив:");
     put_elements(arr, size);
+
     rand_elements(arr, size);
     printf("\nМассив, заполненный числами от -1 до 1 рандомно:");
     put_elements(arr, size);
+
     printf("\nВведите значение А:");
     scanf("%d", &k);
     printf("\nНовый массив:");
     size = delete_k(arr, size, k);
     put_elements(arr, size);
+
     printf("\nВведите инедкс числа:");
     scanf("%d", &index);
-    printf("Введите число которое нужно вставить:");
+    printf("\nВведите число которое нужно вставить:");
     scanf("%d", &num);
-    insert(arr, size, index, num);
-
+    ptr_array = insert(arr, &size, index, num);
     printf("\nНовый массив:");
     put_elements(arr, size);
     free(ptr_array);
