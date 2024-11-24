@@ -1,0 +1,123 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define MIN_SIZE 10
+#define MAX_SIZE 50
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+#include <math.h> 
+#include <conio.h>
+
+void put_elements(double* array, int size)
+{
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%f ", array[i]);
+    }
+    printf("\n");
+}
+
+void rand_elements(double* array, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = ((double)rand() / RAND_MAX) * 2.0 - 1;
+    }
+}
+
+double* new_array(double* a, int size_a, double* b, int size_b, int* size_d) 
+{
+    int polozitelnie_in_a = 0;
+    for (int i = 0; i < size_a; i++)
+    {
+        if (a[i] > 0) 
+        {
+            polozitelnie_in_a++;
+        }
+    }
+
+    int otricatelnie_in_b = 0;
+    for (int i = 0; i < size_b; i++) 
+    {
+        if (b[i] < 0) 
+        {
+            otricatelnie_in_b++;
+        }
+    }
+
+    *size_d = polozitelnie_in_a + otricatelnie_in_b;
+    double* d = (double*)malloc(*size_d * sizeof(double));
+    if (d == NULL)
+    {
+        puts("error");
+        return -1;
+    }
+
+    int index = 0;
+    for (int i = 0; i < size_a; i++) 
+    {
+        if (a[i] > 0) 
+        {
+            d[index++] = a[i];
+        }
+    }
+
+    for (int i = size_b - 1; i >= 0; i--) 
+    {
+        if (b[i] < 0) 
+        {
+            d[index++] = b[i];
+        }
+    }
+    return d;
+}
+
+int main() 
+{
+    setlocale(LC_CTYPE, "RUS");
+    srand(time(NULL));
+    int n = rand() % (MAX_SIZE - MIN_SIZE + 1) + MIN_SIZE;
+    int m = rand() % (MAX_SIZE - MIN_SIZE + 1) + MIN_SIZE;
+    int l = rand() % (MAX_SIZE - MIN_SIZE + 1) + MIN_SIZE;
+    double* a = (double*)malloc(n * sizeof(double));
+    if (a == NULL)
+    {
+        puts("error");
+        return -1;
+    }
+    double* b = (double*)malloc(m * sizeof(double));
+    if (b == NULL)
+    {
+        puts("error");
+        return -1;
+    }
+    double* c = (double*)malloc(l * sizeof(double));
+    if (c == NULL)
+    {
+        puts("error");
+        return -1;
+    }
+    printf("Массив A:\n");
+    rand_elements(a, n);
+    put_elements(a, n);
+    
+    printf("Массив B:\n");
+    rand_elements(b, m);
+    put_elements(b, m);
+
+    printf("Массив C:\n");
+    rand_elements(c, l);
+    put_elements(c, l);
+
+    int size_d;
+    double* d = new_array(a, n, b, m, &size_d);
+    printf("Массив D:\n");
+    put_elements(d, size_d);
+
+    free(a);
+    free(b);
+    free(c);
+    free(d);
+}
