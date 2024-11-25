@@ -1,0 +1,56 @@
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+#include <math.h> 
+#include <conio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main()
+{
+    char Name[40], Snew[40] = "hello, ";
+    printf("Print your name:");
+    scanf("%s", &Name);
+    strcat(Snew, Name);
+    printf("%s!\n", Snew);
+    for (int i = 0; Snew[i] != '\0'; i++)
+    {
+        Snew[i] = toupper(Snew[i]);
+    }
+    printf("%s!\n", Snew);
+    int lenght = strlen(Snew);
+    for (int i = lenght; i < 40; i++)
+    {
+        Snew[i] = '!';
+    }
+    printf("%s!", Snew);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
