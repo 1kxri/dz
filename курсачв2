@@ -108,9 +108,9 @@ int main()
                 {
                     if (matrix[i][j] == 0)
                     {
-                        for (int k = 0; k < SIZE; k++)
+                        for (int k = 2; k < SIZE; k++)
                         {
-                            for (int l = 0; l < SIZE; l++)
+                            for (int l = 2; l < SIZE; l++)
                             {
                                 if (matrix[k][l] == 1)
                                 {
