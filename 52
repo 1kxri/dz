@@ -20,7 +20,35 @@ void printMatrix(int** matrix, int size)
     printf("\n");
 }
 
+int zapolnenie_matrix(int** matrix, int size)
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    return **matrix;
+}
 
+int zapolnenie_matrix_randomno(int** matrix, int size)
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            matrix[i][j] = rand() % 2;
+        }
+    }
+    return **matrix;
+}
+
+int proverka_edinic(int** matrix, int size)
+{
+    if (matrix[0][0] == 0 || matrix[0][1] == 0 || matrix[1][0] == 0 || matrix[1][1] == 0)
+        return 1;
+}
 
 int main()
 {
@@ -60,23 +88,10 @@ int main()
         {
         case 1:
             printf("Введите элементы матрицы 6x6 (0 или 1):\n");
-            for (int i = 0; i < SIZE; i++)
-            {
-                for (int j = 0; j < SIZE; j++)
-                {
-                    scanf("%d", &matrix[i][j]);
-                }
-            }
+            zapolnenie_matrix(matrix, SIZE);
             break;
         case 2:
-            srand(time(0));
-            for (int i = 0; i < SIZE; i++)
-            {
-                for (int j = 0; j < SIZE; j++)
-                {
-                    matrix[i][j] = rand() % 2;
-                }
-            }
+            zapolnenie_matrix_randomno(matrix, SIZE);
             printf("Сгенерированная матрица:\n");
             printMatrix(matrix, SIZE);
             break;
