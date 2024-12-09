@@ -1,1 +1,162 @@
-printf("*********************************************************************\n*          Курсовая работа:                                         *\n*          тема: Реализация динамического многомерного массива      *\n*          Выполнил: Каверин.А.В                                    *\n*          группа: бИД - 241                                        *\n*********************************************************************\n");
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define SIZE 6
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    printf("*********************************************************************\n");
+    printf("*          Курсовая работа:                                         *\n");
+    printf("*          Тема: Реализация динамического многомерного массива      *\n");
+    printf("*          Выполнил: Есаков М.Е                                     *\n");
+    printf("*          Группа: бИД - 241                                        *\n");
+    printf("*********************************************************************\n");
+    int** matrix;
+    matrix = (int**)malloc(SIZE * sizeof(int*));
+    if (matrix == NULL)
+    {
+        puts("Ошибка выделения памяти");
+        return -1;
+    }
+    for (int i = 0; i < SIZE; i++)
+    {
+        matrix[i] = (int*)malloc(SIZE * sizeof(int));
+        if (matrix[i] == NULL)
+        {
+            puts("Ошибка выделения памяти");
+            return -1;
+        }
+    }
+    int option;
+    do
+    {
+        printf("Выберите способ инициализации матрицы 6x6:\n");
+        printf("1. Ввести матрицу вручную\n");
+        printf("2. Сгенерировать матрицу случайно\n");
+        printf("3. Выход из программы\n");
+        printf("Ваш выбор: ");
+        scanf("%d", &option);
+        switch (option)
+        {
+        case 1:
+            printf("Введите элементы матрицы 6x6 (0 или 1):\n");
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    scanf("%d", &matrix[i][j]);
+                }
+            }
+            break;
+        case 2:
+            srand(time(0));
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    matrix[i][j] = rand() % 2;
+                }
+            }
+            printf("Сгенерированная матрица:\n");
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    printf("%d ", matrix[i][j]);
+                }
+                printf("\n");
+            }
+            break;
+        case 3:
+            printf("Выход из программы\n");
+            break;
+        default:
+            printf("Неверный выбор\n");
+        }
+
+        if (option != 3)
+        {
+            int ones_needed = 4;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        for (int k = 0; k < SIZE; k++)
+                        {
+                            for (int l = 0; l < SIZE; l++)
+                            {
+                                if (matrix[k][l] == 1)
+                                {
+                                    int temp = matrix[i][j];
+                                    matrix[i][j] = matrix[k][l];
+                                    matrix[k][l] = temp;
+                                    ones_needed--;
+                                    if (ones_needed == 0) break;
+                                }
+                            }
+                            if (ones_needed == 0) break;
+                        }
+                    }
+
+                }
+            }
+            ones_needed = 4;
+            for (int i = SIZE - 2; i < SIZE; i++)
+            {
+                for (int j = SIZE - 2; j < SIZE; j++)
+                {
+                    if (matrix[i][j] == 0)
+                    {
+                        for (int k = 2; k < SIZE; k++)
+                        {
+                            for (int l = 2; l < SIZE; l++)
+                            {
+                                if (matrix[k][l] == 1)
+                                {
+                                    int temp = matrix[i][j];
+                                    matrix[i][j] = matrix[k][l];
+                                    matrix[k][l] = temp;
+                                    ones_needed--;
+                                    if (ones_needed == 0) break;
+                                }
+                            }
+                            if (ones_needed == 0) break;
+                        }
+                    }
+                }
+            }
+            printf("Преобразованная матрица:\n");
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    printf("%d ", matrix[i][j]);
+                }
+                printf("\n");
+            }
+            if (matrix[0][0] == 0 || matrix[0][1] == 0 || matrix[1][0] == 0 || matrix[1][1] == 0)
+            {
+                printf("Квадрат из 4 единиц в левом верхнем углу сформировать невозможно\n");
+            }
+            if (matrix[4][4] == 0 || matrix[4][5] == 0 || matrix[5][4] == 0 || matrix[5][5] == 0)
+            {
+                printf("Квадрат из 4 единиц в правом нижнем углу сформировать невозможно\n");
+            }
+        }
+        printf("Хотите продолжить? (1 - Да, 0 - Нет): ");
+        scanf("%d", &option);
+    } 
+    while (option == 1);
+    for (int i = 0; i < SIZE; i++)
+    {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
