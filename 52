@@ -7,6 +7,21 @@
 #include <time.h>
 #include <locale.h>
 
+void printMatrix(int** matrix, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+
+
 int main()
 {
     setlocale(LC_ALL, "RUS");
@@ -63,14 +78,7 @@ int main()
                 }
             }
             printf("Сгенерированная матрица:\n");
-            for (int i = 0; i < SIZE; i++)
-            {
-                for (int j = 0; j < SIZE; j++)
-                {
-                    printf("%d ", matrix[i][j]);
-                }
-                printf("\n");
-            }
+            printMatrix(matrix, SIZE);
             break;
         case 3:
             printf("Выход из программы\n");
@@ -133,14 +141,7 @@ int main()
                 }
             }
             printf("Преобразованная матрица:\n");
-            for (int i = 0; i < SIZE; i++)
-            {
-                for (int j = 0; j < SIZE; j++)
-                {
-                    printf("%d ", matrix[i][j]);
-                }
-                printf("\n");
-            }
+            printMatrix(matrix, SIZE);
             if (matrix[0][0] == 0 || matrix[0][1] == 0 || matrix[1][0] == 0 || matrix[1][1] == 0)
             {
                 printf("Квадрат из 4 единиц в левом верхнем углу сформировать невозможно\n");
