@@ -1,0 +1,240 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES 
+#define SIZE 7
+#define MAXSIZE 100
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+int colvo_row(int (*arr)[SIZE])
+{
+    int count = 0;
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE - 1; j++)
+        {
+            if (arr[i][j] == arr[i][j + 1])
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int colvo_col(int (*arr)[SIZE])
+{
+    int count = 0;
+    for (int j = 0; j < SIZE; j++)
+    {
+        for (int i = 0; i < SIZE - 1; i++)
+        {
+            if (arr[i][j] == arr[i + 1][j])
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int colvo_diag(int (*arr)[SIZE]) {
+    int count = 0;
+    for (int i = 0; i < SIZE - 1; i++) {
+        for (int j = 0; j < SIZE - 1; j++) {
+            if (i == j) {
+                if (arr[i][j] == arr[i + 1][j + 1]) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+int max_element(int (*arr)[SIZE])
+{
+    int col = 0, row = 0;
+    int maxx = arr[0][0];
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (arr[i][j] > maxx)
+            {
+                maxx = arr[i][j];
+                col = i;
+                row = j;
+            }
+            else if (arr[i][j] == maxx)
+            {
+                row = i;
+                col = j;
+            }
+        }
+    }
+    row = row + 1;
+    return row;
+}
+
+int max_element2(int (*arr)[SIZE])
+{
+    int col = 0, row = 0;
+    int maxx = arr[0][0];
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (arr[i][j] > maxx)
+            {
+                maxx = arr[i][j];
+                col = i;
+                row = j;
+            }
+            else if (arr[i][j] == maxx)
+            {
+                row = i;
+                col = j;
+            }
+        }
+    }
+    col = col + 1;
+    return col;
+}
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    int rows, cols, x, y, z, w;
+    float a[MAXSIZE][MAXSIZE], mininrow = 100, maxincol = 0, indiag;
+    int nawel = 0;
+    printf("Введите количество строк:\n");
+    scanf("%d", &rows);
+    printf("Введите количество столбцов:\n");
+    scanf("%d", &cols);
+    printf("В какой строке нужно найти минимальный элемент?\n");
+    scanf("%d", &x);
+    printf("В каком столбце нужно найти наибольший элемент?\n");
+    scanf("%d", &y);
+    printf("Какое значение нужно найти на диагонали?\n");
+    scanf("%f", &indiag);
+
+    for (int i = 0; i < cols; i++)
+    {
+        printf("  %d ", i + 1);
+    }
+    printf("\n");
+
+    for (int i = 0; i < rows; i++)
+    {
+        printf("%d", i + 1);
+        for (int j = 0; j < cols; j++)
+        {
+            a[i][j] = (float)(i + 1) / (j + 1);
+            printf(" %.1f", a[i][j]);
+            if (i + 1 == x)
+            {
+                if (a[i][j] < mininrow)
+                {
+                    mininrow = a[i][j];
+                }
+            }
+            if (j + 1 == y)
+            {
+                if (a[i][j] > maxincol)
+                {
+                    maxincol = a[i][j];
+                }
+            }
+            if (i == j)
+            {
+                if (a[i][j] == indiag)
+                {
+                    z = i + 1;
+                    w = j + 1;
+                    nawel = 1;
+                }
+            }
+        }
+        printf("\n");
+    }
+    printf("Элемент в левом верхнем углу массива: %.1f\n", a[0][0]);
+    printf("Минимальный элемент в заданной строке: %.1f\n", mininrow);
+    printf("Максимальнвый элемент в заданнос столбце: %.1f\n", maxincol);
+    if (nawel == 0)
+        printf("Элемент %f не найден\n", indiag);
+    else
+        printf("Элемент %f найден в строке %d в столбце %d\n", indiag, z, w);
+
+    srand(time(NULL));
+    int A[SIZE][SIZE];
+    int B[SIZE][SIZE];
+    int colvo_v_A = 0;
+    printf("\nМассив:\n");
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            A[i][j] = -10 + (rand() % 21);
+            printf("%3d ", A[i][j]);
+            if (j == 1)
+            {
+                if (A[i][j] < -5)
+                {
+                    colvo_v_A++;
+                }
+            }
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            B[j][i] = A[i][j];
+        }
+    }
+    printf("\nТранспонированный массив:\n");
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            printf("%3d ", B[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Количество элементов второго столбца массива, меньших -5: %d\n", colvo_v_A);
+    printf("Количество одинаковых пар элементов, расположенных в строке: %d\n", colvo_row(A));
+    printf("Количество одинаковых пар элементов, расположенных в столбце: %d\n", colvo_col(A));
+    printf("Количество одинаковых пар элементов, расположенных на главной диагонали: %d\n", colvo_diag(A));
+    printf("Координаты максимального элемента: [%d][%d]", max_element(A), max_element2(A));
+    int students[11][5] =
+    {
+       {25, 30, 28, 27, 26},
+       {32, 35, 31, 30, 29},
+       {22, 24, 26, 25, 23},
+       {28, 30, 29, 27, 26},
+       {20, 22, 24, 23, 21},
+       {30, 32, 29, 28, 27},
+       {27, 29, 28, 26, 25},
+       {24, 26, 25, 23, 22},
+       {29, 31, 30, 28, 27},
+       {26, 28, 27, 25, 24},
+       {33, 35, 32, 31, 30}
+    };
+
+    int parallel;
+    printf("\nВведите номер параллели (от 1 до 11): ");
+    scanf("%d", &parallel);
+    int total_students = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        total_students += students[parallel - 1][i];
+    }
+    printf("Общее количество учеников в параллели %d: %d\n", parallel, total_students);
+
+}
