@@ -1,0 +1,211 @@
+/* Подключение библиотек */
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define SIZE 6
+#define MAXSIZE 100
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+/*
+* заполняет матрицу с консоли
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** zapolnenie_matrix(int** matrix, int size);
+/*
+* заполняет матрицу числами от 0 до 1
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** zapolnenie_matrix_randomno(int** matrix, int size);
+/*
+* проверяет углы матрицы
+* matrix - указывает на начало матрицы
+* возвращает 1, если слева не сфоримаровался квадрат, 2 - если справа снизу
+*/
+int one_or_null(int** matrix, int size);
+/*
+* методом перестановки создает квадраты из 4 единиц по углам
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** replace_matrix(int** matrix, int size);
+/*
+* печатает матрицу
+* matrix - указывает на начало матрицы
+*/
+void print_matrix(int** matrix, int size);
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    srand(time(NULL));
+
+    printf("*************************************************************************************\n");
+    printf("* Курсовая работа:                                                                  *\n");
+    printf("* Тема: Реализация динамического многомерного массива                               *\n");
+    printf("* Выполнил: Есаков М.Е                                                              *\n");
+    printf("* Группа: бИД - 241                                                                 *\n");
+    printf("* Программа преобразовывать матрицу, чтобы формировались квадраты из единиц в углах *\n");
+    printf("*************************************************************************************\n");
+
+    int kvadrat;
+    printf("Введите число столбцов/строк квадратной матрицы (одно число): ");
+    scanf("%d", &kvadrat);
+    /* Выделение памяти для матрицы */
+    int** matrix = (int**)malloc(kvadrat * sizeof(int*));
+    if (matrix == NULL) {
+        puts("Ошибка выделения памяти");
+        return -1;
+    }
+    /* Проход в цикле по каждому указателю и выделение памяти для каждой строки */
+    for (int i = 0; i < kvadrat; i++) {
+        matrix[i] = (int*)malloc(kvadrat * sizeof(int));
+        if (matrix[i] == NULL) {
+            puts("Ошибка выделения памяти");
+            return -1;
+        }
+    }
+    /* Выбор пользователя */
+    int option;
+    do {
+        printf("------------------МЕНЮ--------------------\n");
+        printf("Выберите способ инициализации матрицы 6x6:\n");
+        printf("1. Ввести матрицу вручную\n");
+        printf("2. Сгенерировать матрицу случайно\n");
+        printf("3. Выход из программы\n");
+        printf("------------------------------------------\n");
+        printf("Ваш выбор: ");
+        scanf("%d", &option);
+        switch (option) {
+            /* Если пользватель выбриает 1, то он вручную заполняет матрицу 6x6 */
+        case 1:
+            printf("Введите элементы матрицы 6x6 (0 или 1):\n");
+            zapolnenie_matrix(matrix, kvadrat);
+            break;
+            /* Если пользватель выбриает 2, то матрица 6x6 заполняется рандомно числами от 0 до 1 */
+        case 2:
+            zapolnenie_matrix_randomno(matrix, kvadrat);
+            printf("Сгенерированная матрица:\n");
+            print_matrix(matrix, kvadrat);
+            break;
+            /* Если пользватель выбриает 3, то происходит вход из программы */
+        case 3:
+            printf("Выход из программы\n");
+            break;
+        default:
+            printf("Неверный выбор\n");
+        }
+        /* Если пользватель выбриает не 3, то матрица преобразовывается и проверяется на правильность преобразования */
+        if (option != 3) {
+            replace_matrix(matrix, kvadrat);
+            printf("Преобразованная матрица:\n");
+            print_matrix(matrix, kvadrat);
+        }
+        /* Пользватель выбриает, повторить программу или завершить ее */
+        printf("Хотите продолжить? (1 - Да, 0 - Нет): ");
+        scanf("%d", &option);
+    } while (option == 1);
+    /* Освобождение памяти матрицы */
+    for (int i = 0; i < kvadrat; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
+int** zapolnenie_matrix(int** matrix, int kvadrat) {
+    for (int i = 0; i < kvadrat; i++) {
+        for (int j = 0; j < kvadrat; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    return matrix;
+}
+
+int** zapolnenie_matrix_randomno(int** matrix, int kvadrat) {
+    for (int i = 0; i < kvadrat; i++) {
+        for (int j = 0; j < kvadrat; j++) {
+            matrix[i][j] = rand() % 2;
+        }
+    }
+    return matrix;
+}
+
+int** replace_matrix(int** matrix, int kvadrat) {
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            if (matrix[i][j] == 0) {
+                for (int k = 0; k < kvadrat; k++) {
+                    for (int l = (k < 2 ? 2 : 0); l < (k > kvadrat - 3 ? kvadrat - 2 : kvadrat); l++) {
+                        if (matrix[k][l] == 1) {
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for (int i = kvadrat - 2; i < kvadrat; i++) {
+        for (int j = kvadrat - 2; j < kvadrat; j++) {
+            if (matrix[i][j] == 0) {
+                for (int k = 2; k < kvadrat; k++) {
+                    for (int l = 2; l < kvadrat; l++) {
+                        if (matrix[k][l] == 1) {
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for (int i = kvadrat - 2; i < kvadrat; i++) {
+        for (int j = 0; j < 2; j++) {
+            if (matrix[i][j] == 0) {
+                for (int k = 0; k < kvadrat; k++) {
+                    for (int l = (k < 2 ? 2 : 0); l < (k > kvadrat - 3 || k < 2 ? kvadrat - 2 : kvadrat); l++) {
+                        if (matrix[k][l] == 1) {
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = kvadrat - 2; j < kvadrat; j++) {
+            if (matrix[i][j] == 0) {
+                for (int k = 0; k < kvadrat; k++) {
+                    for (int l = (k < 2 ? 2 : 0); l < (k > kvadrat - 3 || k < 2 ? kvadrat - 2 : kvadrat); l++) {
+                        if (matrix[k][l] == 1) {
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return matrix;
+}
+
+void print_matrix(int** matrix, int kvadrat) {
+    for (int i = 0; i < kvadrat; i++) {
+        for (int j = 0; j < kvadrat; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
