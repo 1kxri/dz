@@ -1,0 +1,189 @@
+/* Подключение библиотек */
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS
+#define SIZE 6
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+/*
+* заполняет матрицу с консоли
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** zapolnenie_matrix(int** matrix, int size);
+/*
+* заполняет матрицу числами от 0 до 1
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** zapolnenie_matrix_randomno(int** matrix, int size);
+/*
+* проверяет углы матрицы
+* matrix - указывает на начало матрицы
+* возвращает 1, если слева не сфоримаровался квадрат, 2 - если справа снизу
+*/
+int one_or_null(int** matrix, int size);
+/*
+* методом перестановки создает квадраты из 4 единиц по углам
+* matrix - указывает на начало матрицы
+* возвращает matrix
+*/
+int** replace_matrix(int** matrix, int size);
+/*
+* печатает матрицу
+* matrix - указывает на начало матрицы
+*/
+void print_matrix(int** matrix, int size);
+
+int main(){
+    setlocale(LC_ALL, "RUS");
+    srand(time(NULL));
+
+    printf("*********************************************************************\n");
+    printf("*          Курсовая работа:                                         *\n");
+    printf("*          Тема: Реализация динамического многомерного массива      *\n");
+    printf("*          Выполнил: Есаков М.Е                                     *\n");
+    printf("*          Группа: бИД - 241                                        *\n");
+    printf("*********************************************************************\n");
+
+    /* Выделение памяти для матрицы */
+    int** matrix = (int**)malloc(SIZE * sizeof(int*));
+    if (matrix == NULL) {
+        puts("Ошибка выделения памяти");
+        return -1;
+    }
+    /* Проход в цикле по каждому указателю и выделение памяти для каждой строки */
+    for (int i = 0; i < SIZE; i++) {
+        matrix[i] = (int*)malloc(SIZE * sizeof(int));
+        if (matrix[i] == NULL) {
+            puts("Ошибка выделения памяти");
+            return -1;
+        }
+    }
+    /* Выбор пользователя */
+    int option;
+    do {
+        printf("Здравствуйте! Данная программа позволяет преобразовывать матрицу, чтобы формировались квадраты из единиц в углах.\n");
+        printf("------------------МЕНЮ--------------------\n");
+        printf("Выберите способ инициализации матрицы 6x6:\n");
+        printf("1. Ввести матрицу вручную\n");
+        printf("2. Сгенерировать матрицу случайно\n");
+        printf("3. Выход из программы\n");
+        printf("------------------------------------------\n");
+        printf("Ваш выбор: ");
+        scanf("%d", &option);
+        switch (option) {
+            /* Если пользватель выбриает 1, то он вручную заполняет матрицу 6x6 */
+        case 1:
+            printf("Введите элементы матрицы 6x6 (0 или 1):\n");
+            zapolnenie_matrix(matrix, SIZE);
+            break;
+            /* Если пользватель выбриает 2, то матрица 6x6 заполняется рандомно числами от 0 до 1 */
+        case 2:
+            zapolnenie_matrix_randomno(matrix, SIZE);
+            printf("Сгенерированная матрица:\n");
+            print_matrix(matrix, SIZE);
+            break;
+            /* Если пользватель выбриает 3, то происходит вход из программы */
+        case 3:
+            printf("Выход из программы\n");
+            break;
+        default:
+            printf("Неверный выбор\n");
+        }
+        /* Если пользватель выбриает не 3, то матрица преобразовывается и проверяется на правильность преобразования */
+        if (option != 3) {
+            replace_matrix(matrix, SIZE);
+            printf("Преобразованная матрица:\n");
+            print_matrix(matrix, SIZE);
+            if (one_or_null(matrix, SIZE) == 1) {
+                printf("Квадрат из 4 единиц в левом верхнем углу сформировать невозможно\n");
+            }
+            if (one_or_null(matrix, SIZE) == 0) {
+                printf("Квадрат из 4 единиц в правом нижнем углу сформировать невозможно\n");
+            }
+        }
+        /* Пользватель выбриает, повторить программу или завершить ее */
+        printf("Хотите продолжить? (1 - Да, 0 - Нет): ");
+        scanf("%d", &option);
+    } while (option == 1);
+    /* Освобождение памяти матрицы */
+    for (int i = 0; i < SIZE; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+
+int** zapolnenie_matrix(int** matrix, int size){
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    return matrix;
+}
+
+int** zapolnenie_matrix_randomno(int** matrix, int size){
+    for (int i = 0; i < SIZE; i++){
+        for (int j = 0; j < SIZE; j++){
+            matrix[i][j] = rand() % 2;
+        }
+    }
+    return matrix;
+}
+
+int one_or_null(int** matrix, int size){
+    if (matrix[0][0] == 0 || matrix[0][1] == 0 || matrix[1][0] == 0 || matrix[1][1] == 0){
+        return 1;
+    }
+    if (matrix[4][4] == 0 || matrix[4][5] == 0 || matrix[5][4] == 0 || matrix[5][5] == 0){
+        return 0;
+    }
+}
+
+int** replace_matrix(int** matrix, int size){
+    for (int i = 0; i < 2; i++){
+        for (int j = 0; j < 2; j++){
+            if (matrix[i][j] == 0){
+                for (int k = size - 3; k >= 3; k--) {
+                    for (int l = size - 3; l >= 3; l--){
+                        if (matrix[k][l] == 1){
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (int i = size - 2; i < size; i++){
+        for (int j = size - 2; j < size; j++){
+            if (matrix[i][j] == 0){
+                for (int k = 2; k < size; k++){
+                    for (int l = 2; l < size; l++){
+                        if (matrix[k][l] == 1){
+                            int temp = matrix[i][j];
+                            matrix[i][j] = matrix[k][l];
+                            matrix[k][l] = temp;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return matrix;
+}
+
+void print_matrix(int** matrix, int size){
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
