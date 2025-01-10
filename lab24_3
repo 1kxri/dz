@@ -1,0 +1,109 @@
+#define _CRT_SECURE_NO_WARNINGS 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+struct Node {
+    int data; // Изменено на int для хранения целых чисел
+    struct Node* next;
+};
+
+typedef struct {
+    struct Node* queue;
+    struct Node* front;
+    struct Node* back;
+} queue_list;
+
+/* Добавление элемента в очередь */
+void enQueue(queue_list* que, int element) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = element;
+    newNode->next = NULL;
+
+    if (que->back == NULL) {
+        que->front = newNode;
+        que->back = newNode;
+    }
+    else {
+        que->back->next = newNode;
+        que->back = newNode;
+    }
+}
+
+/* Извлечение элемента из очереди */
+int deQueue(queue_list* que) {
+    if (que->front == NULL) {
+        printf("Ошибка: очередь пуста\n");
+        return -1;
+    }
+
+    int element = que->front->data;
+    que->front = que->front->next;
+
+    if (que->front == NULL) {
+        que->back = NULL;
+    }
+
+    return element;
+}
+
+/* Отображение содержимого очереди */
+void display(queue_list* que) {
+    struct Node* cursor = que->front;
+    if (cursor == NULL) {
+        printf("Очередь пуста.\n");
+        return;
+    }
+    printf("Содержимое очереди: ");
+    while (cursor != NULL) {
+        printf("%d ", cursor->data);
+        cursor = cursor->next;
+    }
+    printf("\n");
+}
+
+/* Удаление элементов, меньших заданного числа */
+void delete_element(queue_list* que, int chislo) {
+    queue_list tempQueue;
+    tempQueue.front = NULL;
+    tempQueue.back = NULL;
+
+    while (que->front != NULL) {
+        int porog = deQueue(que);
+        if (porog >= chislo) {
+            enQueue(&tempQueue, porog); 
+        }
+    }
+
+    while (tempQueue.front != NULL) {
+        enQueue(que, deQueue(&tempQueue));
+    }
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    queue_list S;
+    S.front = NULL;
+    S.back = NULL;
+    int input;
+
+    printf("Введите целые числа (введите -1 для завершения ввода):\n");
+    while (1) {
+        scanf("%d", &input);
+        if (input == -1) break; 
+        enQueue(&S, input);
+    }
+
+    display(&S);
+
+    int chislo;
+    printf("Введите число для удаления всех меньших значений: ");
+    scanf("%d", &chislo);
+
+    delete_element(&S, chislo);
+    printf("Содержимое очереди после удаления чисел меньших %d:\n", chislo);
+    display(&S);
+
+    return 0;
+}
