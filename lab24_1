@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+#define NMAX 100
+#define FTYPE "%3c,"
+
+typedef struct {
+    int top;
+    char data[NMAX];
+} stack;
+
+/* Проверка, пуст ли стек */
+int isempty(stack* s) {
+    return s->top == 0; 
+}
+
+/* Проверка, полон ли стек */
+int isfull(stack* s) {
+    return s->top == NMAX; 
+}
+
+/* Помещение элемента в стек */
+int push(stack* s, char kol) {
+    if (isfull(s)) {
+        printf("Ошибка: стек переполнен\n");
+        return -1;
+    }
+    s->data[++(s->top)] = kol;
+    return 0; 
+}
+
+/* Удаление элемента из стека */
+char pop(stack* s) {
+    if (isempty(s)) {
+        printf("Ошибка: стек пуст\n");
+        return '\0'; 
+    }
+    return s->data[--s->top]; 
+}
+
+/* Значение элемента в вершине стека */
+char top(stack* s) {
+    if (isempty(s)) {
+        printf("Ошибка: стек пуст\n");
+        return '\0'; 
+    }
+    return s->data[s->top - 1]; 
+}
+
+/* Вывод стека */
+void display(stack* s) {
+    int i = s->top;
+    while (i >= 0)
+        printf(FTYPE, s->data[i--]);
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    stack S;
+    S.top = -1; 
+    char input[NMAX];
+
+    printf("Введите строку (максимум %d символов): ", NMAX - 1);
+    fgets(input, NMAX, stdin); 
+    for (int i = 0; i < strlen(input) - 1; i++) {
+        push(&S, input[i]); 
+    }
+    printf("Содержимое стека:\n");
+    display(&S);
+
+    return 0;
+}
