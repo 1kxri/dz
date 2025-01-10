@@ -5,7 +5,7 @@
 #include <locale.h>
 
 struct Node {
-    int data; // Изменено на int для хранения целых чисел
+    int data; 
     struct Node* next;
 };
 
