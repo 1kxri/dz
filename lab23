@@ -1,0 +1,220 @@
+#define _CRT_SECURE_NO_WARNINGS 
+
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#ifndef _LIST_H
+#define _LIST_H
+
+#include <stdbool.h>
+
+struct listitem {
+    int number;
+    char name[80];
+    struct listitem* next;
+};
+
+typedef struct listitem* List;
+
+void initlist(List*); /* инициализация списка пустым содержимым */
+void insertfront_number(List*, int val); /* вставка в список перед узлом со значением поля number=val */
+void insertback_number(List*, int val); /* вставка в список перед узлом со значением поля number=val */
+void insertfront_str(List*, char* str); /* вставка в список перед узлом со значением str в поле name */
+void insertback_str(List*, char* str); /* вставка в список перед узлом со значением str в поле name */
+bool isempty(List*); /* проверяет, является ли список пустым */
+int length(List); /* определение длины списка */
+void destroyItem(List*, struct listitem* node); /* удаление заданного узла node из списка */
+struct listitem* getitem_number(List, int n); /* нахождение узла со значением n в поле number */
+struct listitem* getitem_str(List, char* str); /* нахождение узла со значением str в поле name */
+
+#endif /* _LIST_H */
+
+void initlist(List* list) {
+    *list = NULL; // Инициализация списка пустым содержимым
+}
+
+void insertfront_number(List* list, int val) {
+    List newItem = (List)malloc(sizeof(struct listitem));
+    if (newItem == NULL) {
+        fprintf(stderr, "Ошибка выделения памяти\n");
+        return;
+    }
+    newItem->number = val;
+    newItem->next = *list;
+    *list = newItem;
+}
+
+void insertback_number(List* list, int val) {
+    List newItem = (List)malloc(sizeof(struct listitem));
+    if (newItem == NULL) {
+        fprintf(stderr, "Ошибка выделения памяти\n");
+        return;
+    }
+    newItem->number = val;
+    newItem->next = NULL;
+
+    if (*list == NULL) {
+        *list = newItem; // Если список пуст, новый элемент становится первым
+    }
+    else {
+        List current = *list;
+        while (current->next != NULL) {
+            current = current->next; // Находим последний элемент
+        }
+        current->next = newItem; // Добавляем новый элемент в конец списка
+    }
+}
+
+void insertfront_str(List* list, char* str) {
+    List newItem = (List)malloc(sizeof(struct listitem));
+    if (newItem == NULL) {
+        fprintf(stderr, "Ошибка выделения памяти\n");
+        return;
+    }
+    strcpy(newItem->name, str);
+    newItem->next = *list;
+    *list = newItem;
+}
+
+void insertback_str(List* list, char* str) {
+    List newItem = (List)malloc(sizeof(struct listitem));
+    if (newItem == NULL) {
+        fprintf(stderr, "Ошибка выделения памяти\n");
+        return;
+    }
+    strcpy(newItem->name, str);
+    newItem->next = NULL;
+
+    if (*list == NULL) {
+        *list = newItem; // Если список пуст, новый элемент становится первым
+    }
+    else {
+        List current = *list;
+        while (current->next != NULL) {
+            current = current->next; // Находим последний элемент
+        }
+        current->next = newItem; // Добавляем новый элемент в конец списка
+    }
+}
+
+bool isempty(List* list) {
+    return *list == NULL; // Проверка, является ли список пустым
+}
+
+int length(List list) {
+    int count = 0;
+    List current = list;
+    while (current != NULL) {
+        count++;
+        current = current->next; // Переход к следующему элементу
+    }
+    return count; // Возвращаем длину списка
+}
+
+void destroyItem(List* list, struct listitem* node) {
+    if (*list == NULL || node == NULL) return;
+
+    if (*list == node) {
+        *list = node->next; // Если удаляем первый элемент
+    }
+    else {
+        List current = *list;
+        while (current->next != NULL && current->next != node) {
+            current = current->next; // Находим узел перед удаляемым
+        }
+        if (current->next == node) {
+            current->next = node->next; // Удаляем узел из списка
+        }
+    }
+    free(node); // Освобождаем память
+}
+
+struct listitem* getitem_number(List list, int n) {
+    List current = list;
+    while (current != NULL) {
+        if (current->number == n) {
+            return current; // Возвращаем узел, если найден
+        }
+        current = current->next; // Переход к следующему элементу
+    }
+    return NULL; // Если узел не найден
+}
+
+struct listitem* getitem_str(List list, char* str) {
+    List current = list;
+    while (current != NULL) {
+        if (strcmp(current->name, str) == 0) {
+            return current; // Возвращаем узел, если найден
+        }
+        current = current->next; // Переход к следующему элементу
+    }
+    return NULL; // Если узел не найден
+}
+
+void printList(List lst) {
+    while (lst != NULL) {
+        printf("%d ", lst->number);
+        lst = lst->next;
+    }
+    printf("\n");
+}
+
+void deleteFirst(List* list) {
+    if (isempty(list)) {
+        printf("Список пуст, удаление невозможно.\n");
+        return;
+    }
+    List temp = *list; // Сохраняем указатель на первый элемент
+    *list = (*list)->next; // Обновляем голову списка
+    free(temp); // Освобождаем память
+}
+
+void deleteLast(List* list) {
+    if (isempty(list)) {
+        printf("Список пуст, удаление невозможно.\n");
+        return;
+    }
+    if ((*list)->next == NULL) { // Если в списке только один элемент
+        free(*list); // Освобождаем память
+        *list = NULL; // Обновляем голову списка
+        return;
+    }
+    List current = *list;
+    while (current->next->next != NULL) { // Находим предпоследний элемент
+        current = current->next;
+    }
+    free(current->next); // Освобождаем память последнего элемента
+    current->next = NULL; // Обновляем указатель на последний элемент
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    List myList;
+    initlist(&myList);
+
+    // Создание списка из 11 целых чисел
+    printf("Введите 11 целых чисел:\n");
+    for (int i = 0; i < 11; i++) {
+        int value;
+        scanf("%d", &value);
+        insertback_number(&myList, value);
+    }
+
+    printf("Исходный список: ");
+    printList(myList);
+
+    // Удаление первого элемента
+    deleteFirst(&myList);
+    printf("Список после удаления первого элемента: ");
+    printList(myList);
+
+    // Удаление последнего элемента
+    deleteLast(&myList);
+    printf("Список после удаления последнего элемента: ");
+    printList(myList);
+
+    return 0;
+}
