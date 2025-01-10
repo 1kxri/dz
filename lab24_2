@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+#define NMAX 100
+
+struct Node {
+    char data;
+    struct Node* next;
+};
+
+typedef struct {
+    struct Node* queue; 
+    struct Node* front; 
+    struct Node* back; 
+} queue_list;
+
+/* Добавлени элемента в очередь */
+void enQueue(queue_list* que, char element) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = element;
+    newNode->next = NULL;
+
+    if (que->back == NULL) {
+        que->front = newNode;
+        que->back = newNode;
+    }
+    else {
+        que->back->next = newNode;
+        que->back = newNode;
+    }
+}
+
+/* Извлечение элменета из очереди */
+char deQueue(queue_list* que) {
+    if (que->front == NULL) {
+        printf("Ошибка: очередь пуста\n");
+        return -1; 
+    }
+
+    char element = que->front->data;
+    que->front = que->front->next;
+
+    if (que->front == NULL) {
+        que->back = NULL;
+    }
+
+    return element;
+}
+
+/* Отображение содержимого очереди */
+void display(queue_list* que) {
+    struct Node* cursor = que->front;
+    if (cursor == NULL) {
+        printf("Очередь пуста.\n");
+        return;
+    }
+    printf("Содержимое очереди: ");
+    while (cursor != NULL) {
+        printf("%c ", cursor->data);
+        cursor = cursor->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    queue_list S;
+    S.front = NULL;
+    S.back = NULL;
+    char input[NMAX];
+
+    printf("Введите строку (максимум %d символов): ", NMAX - 1);
+    fgets(input, NMAX, stdin);
+
+    for (int i = 0; input[i] != '\0' && input[i] != '\n'; i++) { 
+        enQueue(&S, input[i]);
+    }
+
+    display(&S);
+    return 0;
+}
